@@ -1,3 +1,46 @@
+<nav class="navbar navbar-nav" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right" >
+      <li>
+          <ul class="nav nav-pills nav-justified">
+          <a class="navbar-brand" href='/'><i class="fa fa-skyatlas" aria-hidden="true"></i></a>
+                    <li><a href="#">交互设计师</a></li>
+                    <li><a href="#">工业设计师</a></li>
+                    <li><a href="#">动图设计师</a></li>
+                    <li><a href="#">网页设计师</a></li>
+                    <li><a href="#">建筑设计师</a></li>
+
+                  <% if !current_user %>
+                    <li><%= link_to("登入", new_user_session_path) %></li>
+                  <% else %>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          Hi!, <%= current_user.email %>
+                          <b class="caret"></b>
+                      </a>
+
+                    <ul class="dropdown-menu">
+                          <% if current_user.admin? %>
+                          <li> <%= link_to("Admin Panel", admin_jobs_path) %> </li>
+                          <% end %>
+                          <li> <%= link_to("登出", destroy_user_session_path, method: :delete) %> </li>
+                    </ul>
+                  </li>
+                <% end %>
+                  </ul>
+                </ul>
+                </li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
 <div class="pull-right">
   <%= link_to("Add a job", new_job_path, :class => "btn btn-default" ) %>
 </div>
@@ -21,17 +64,19 @@
     </ul>
 </div>
 
-<table class="table table-boldered">
+<table class="table table-bordered table-hover">
     <thead>
       <tr>
         <td>
             职缺</td>
+        <td> 描述 </td>
         <td>薪资下限</td>
         <td>薪资上限</td>
         <td>刊登时间</td>
       </tr>
 
   </thead>
+
   <tbody>
       <% @jobs.each do |job| %>
       <tr>
@@ -47,13 +92,6 @@
         <td>
             <%= job.created_at %>
         </td>
-    <td>
-      <%= link_to("Edit",edit_job_path(job)) %> |
-      <%= link_to("Destroy", job_path(job), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
-    </td>
-    <td>
-      <%= job.created_at %>
-    </td>
   </tr>
   <% end %>
 </table>

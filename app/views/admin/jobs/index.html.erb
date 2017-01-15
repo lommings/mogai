@@ -1,11 +1,54 @@
+<nav class="navbar navbar-nav" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right" >
+      <li>
+          <ul class="nav nav-pills nav-justified">
+          <a class="navbar-brand" href='/'><i class="fa fa-skyatlas" aria-hidden="true"></i></a>
+                    <li><a href="#">交互设计师</a></li>
+                    <li><a href="#">工业设计师</a></li>
+                    <li><a href="#">动图设计师</a></li>
+                    <li><a href="#">网页设计师</a></li>
+                    <li><a href="#">建筑设计师</a></li>
+
+                  <% if !current_user %>
+                    <li><%= link_to("登入", new_user_session_path) %></li>
+                  <% else %>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          Hi!, <%= current_user.email %>
+                          <b class="caret"></b>
+                      </a>
+
+                    <ul class="dropdown-menu">
+                          <% if current_user.admin? %>
+                          <li> <%= link_to("Admin Panel", admin_jobs_path) %> </li>
+                          <% end %>
+                          <li> <%= link_to("登出", destroy_user_session_path, method: :delete) %> </li>
+                    </ul>
+                  </li>
+                <% end %>
+                  </ul>
+                </ul>
+                </li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 <div class="pull-right">
   <%= link_to("Add a job", new_admin_job_path, :class => "btn btn-default" ) %>
 </div>
 
 <br><br>
 
-<table class="table table-boldered">
+<table class="table table-hover table-bordered table-striped custab">
   <thead>
+
         <tr>
             <td>
                 职缺
@@ -38,15 +81,15 @@
     <td> <%= job.wage_lower_bound %> </td>
     <td> <%= job.wage_upper_bound %> </td>
     <td>
-      <%= link_to("Edit", edit_admin_job_path(job)) %>
-      |
-      <%= link_to("Destroy", admin_job_path(job), :method => :delete, :data => { :confirm => "Are you sure?" }) %>
-      |
+      <%= link_to edit_admin_job_path(job),class: "btn btn-xs btn-success" do %><i class="fa fa-wrench"></i> <%end%>
+
+      <%= link_to admin_job_path(job), :method => :delete, :class => "btn btn-xs btn-danger",:data => {:confirm =>"Are you sure?" } do %><i class="fa fa-trash-o"></i><% end %>
+
       <% if job.is_hidden %>
 
-        <%= link_to("Pulish", publish_admin_job_path(job) , :method => :post, :class => "btn btn-xs btn-default") %>
+        <%= link_to publish_admin_job_path(job) , :method => :post, :class => "btn btn-xs btn-primary" do %><i class="fa fa-eye"></i><% end %>
     <% else %>
-        <%= link_to("Hide", hide_admin_job_path(job) , :method => :post, :class => "btn btn-xs btn-default") %>
+        <%= link_to hide_admin_job_path(job) , :method => :post, :class => "btn btn-xs btn-inverse" do %><i class="fa fa-eye-slash"></i><% end %>
         <% end %>
     </td>
     <td>
