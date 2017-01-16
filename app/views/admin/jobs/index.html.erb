@@ -87,9 +87,9 @@
 
       <% if job.is_hidden %>
 
-        <%= link_to publish_admin_job_path(job) , :method => :post, :class => "btn btn-xs btn-primary" do %><i class="fa fa-eye"></i><% end %>
+        <%= link_to publish_admin_job_path(job) , :method => :post, :class => "btn btn-xs btn-inverse" do %><i class="fa fa-eye-slash"></i><% end %>
     <% else %>
-        <%= link_to hide_admin_job_path(job) , :method => :post, :class => "btn btn-xs btn-inverse" do %><i class="fa fa-eye-slash"></i><% end %>
+        <%= link_to hide_admin_job_path(job) , :method => :post, :class => "btn btn-xs btn-primary" do %><i class="fa fa-eye"></i><% end %>
         <% end %>
     </td>
     <td>
